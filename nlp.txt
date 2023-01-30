@@ -1,0 +1,18 @@
+Supervised Methods
+Naive Bayes: Labels words with multiple meanings and then tracks and scores words which commanly sorround each sense of the word of interest. Then at the next encounter of the word, the sorrounding words will determine the inteded sense. 
+
+
+
+n-gram models: Estimates the porbability of finding a word in a given context. They can be of any length n, where an n-gram model attempts to guess a word given the last (n-1) words. For instance a bigram model would predict the likelihood of a given word given only the last words. 
+
+Given a sentence, "I am studying ____", to find the missing word, x, a library is checked and each word is tested for x in library: argmax(P(x|studying)).
+
+These models must be trained to give the probabilities. 
+
+Tokenization: 
+
+Tokenizer API from tensorflow
+
+We dont need to tokenize everything: we can limit the number of words the tokenizer uses. 
+
+embedding is creating a multidimesnional space where sentiment defines an axis and words that appear in sentences with that sentiment are put in that direction. 
