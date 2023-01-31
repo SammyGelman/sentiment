@@ -134,9 +134,9 @@ else:
     def decode_sentence(text):
         return ' '.join([reverse_word_index.get(i, '?') for i in text])
 
-    print(decode_sentence(training_padded[0]))
-    print(training_sentences[2])
-    print(labels[2])
+    # print(decode_sentence(training_padded[0]))
+    # print(training_sentences[2])
+    # print(labels[2])
 
     import io
 
@@ -150,7 +150,7 @@ else:
     out_v.close()
     out_m.close()
 
-sentence = ["granny starting to fear spiders in the garden might be real","this is meant to be a non-sarcastic comment", "game of thrones season finale showing this sunday night"]
+sentence = ["Well that was a fantastic idea, wish I thought of it myself","granny starting to fear spiders in the garden might be real","this is meant to be a non-sarcastic comment", "game of thrones season finale showing this sunday night"]
 sequences = tokenizer.texts_to_sequences(sentence)
 padded = pad_sequences(sequences, maxlen=max_length, padding=padding_type, truncating=trunc_type)
 print(model.predict(padded))
