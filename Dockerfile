@@ -1,10 +1,13 @@
 FROM tensorflow/tensorflow:nightly-gpu
+
 RUN apt update
-RUN pip install matplotlib
-RUN pip install --upgrade tensorflow-probability
-RUN pip install numpy
-RUN pip install scipy
-RUN pip install tensorflow_datasets 
-RUN pip install tensorflow_probability
-RUN pip install pandas
-RUN pip install keras 
+RUN pip3 install matplotlib
+RUN pip3 install numpy
+RUN pip3 install scipy
+RUN pip3 install pandas
+RUN pip3 install keras 
+RUN pip3 install protobuf==3.20.*
+
+COPY . .
+
+EXPOSE 3000
