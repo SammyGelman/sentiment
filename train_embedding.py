@@ -86,7 +86,7 @@ checkpoint = ModelCheckpoint(filepath=checkpoint_path,
         mode='min')
 
 #Stops training if imporvment is no longer being observed
-earlystop = EarlyStopping(monitor='val_loss', patience=4, verbose=1)
+earlystop = EarlyStopping(monitor='val_loss', patience=12, verbose=1)
 
 #CSVLogger logs epoch, acc, loss, val_acc, val_loss
 log_csv = CSVLogger('log.csv',separator=',', append=True)
