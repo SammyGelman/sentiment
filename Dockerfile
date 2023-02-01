@@ -10,4 +10,3 @@ RUN pip3 install protobuf==3.20.*
 
 COPY . .
 
-EXPOSE 3000
