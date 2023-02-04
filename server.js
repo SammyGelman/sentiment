@@ -6,7 +6,6 @@ const port = 3000
 const app = express();
 
 let userGoal = 'Sarcasm';
-let dataToSend;
 
 app.use(
   bodyParser.urlencoded({
@@ -27,10 +26,9 @@ app.get('/', (req, res) => {
           <h2>Sentiment Detection</h2>
           <h3>${userGoal}</h3>
         </section>
-        <form action="/set-sentence" method="GET">
         <form action="/store-goal" method="POST">
           <div class="form-control">
-            <label>Type Sentance Here</label>
+            <label>Type Sentence Here</label>
             <input type="text" name="goal">
           </div>
           <button>Check for sentiment</button>
@@ -40,33 +38,39 @@ app.get('/', (req, res) => {
   `);
 });
 
+app.post('/store-goal', (req, res) => {
+  function findSentence (input) {
+        return 'load_and_run_embedding.py "' + input + '"'   
+  };
+  const sentence = findSentence(req.body.goal);
+  console.log(sentence)
+  
+  const python = spawn('docker', ['exec','-it','alias','python',sentence]);  
+  python.stdout.on('data', (data) => {
+  console.log(data.toString());
+  userGoal = data.toString();
+  });  
+  python.on('close', (code) => {
+  res.redirect('/')
+  });
+});
+
 // app.post('/store-goal', (req, res) => {
-//   const enteredGoal = req.body.goal;
-//   res.redirect('/');
+//   function findSentence (input) {
+//         return 'load_and_run_embedding.py "' + input + '"'   
+//   };
+//   const sentence = findSentence(req.body.goal);
+//   console.log(sentence)
+//   
+//   const python = spawn('/usr/bin/python3', [sentence], {shell: true});  
+//   python.stdout.on('data', (data) => {
+//   console.log(data.toString());
+//   userGoal = data.toString();
+//   });  
+//   python.on('close', (code) => {
+//   res.redirect('/')
+//   });
 // });
 
-
-
-app.get('/set-sentence', (req, res) => {
-  const findSentence = (Sentence) => {
-        return 'python_test.py "' + Sentence + ' proof it worked"'  
-  };
-  dataToSend = req.params
-  // const sentence = findSentence(req.body.goal);
-  // // userGoal = findSentence(enteredGoal) 
-  // const python = spawn('python', [sentence]);  
-  // python.stdout.on('data', function(data) {
-  //     dataToSend = req.params.data.toString();
-  // });  
-  // python.on('close');
-  res.send(dataToSend)
-});
-
-app.post('/store-goal', (req, res) => { 
-  dataToSend = req.body.goal;
-  userGoal = dataToSend;
-  console.log();
-  res.redirect('/');
-});
-//app.listen(80);
-app.listen(port);
+app.listen(80);
+// app.listen(port);

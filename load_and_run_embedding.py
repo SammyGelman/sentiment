@@ -13,12 +13,24 @@ import numpy as np
 import io
 import os
 import pandas as pd
+import argparse
+
+parser = argparse.ArgumentParser(
+                                 prog="sentiment.py",
+                    description="write string and output sentiment")
+ 
+parser.add_argument('sentence', type=str,
+                    help="string to test sentiment")
+ 
+args = parser.parse_args() 
+ 
+sentence = args.sentence
 
 # Suppress TensorFlow output by setting the environment variable
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 tf.get_logger().setLevel('FATAL')
 
-sent = input("Write a sentence we can check how sarcastic it is: ")
+# sent = input("Write a sentence we can check how sarcastic it is: ")
 
 #load data
 with open('sarcasm.json', 'r') as f:
@@ -145,7 +157,8 @@ def decode_sentence(text):
 # sentence = ["Well that was a fantastic idea, wish I thought of it myself","granny starting to fear spiders in the garden might be real","this is meant to be a non-sarcastic comment", "game of thrones season finale showing this sunday night"]
 # sequences = tokenizer.texts_to_sequences(sentence)
 
-sequences = tokenizer.texts_to_sequences([sent])
+# sequences = tokenizer.texts_to_sequences([sent])
+sequences = tokenizer.texts_to_sequences([sentence])
 padded = pad_sequences(sequences, maxlen=max_length, padding=padding_type, truncating=trunc_type)
 if new_model.predict(padded)[0][0] >= 0.5:
     print("That was probably sarcastic")
