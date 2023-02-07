@@ -1,18 +1,12 @@
-FROM ubuntu:latest
-RUN apt-get update && apt-get install -qy curl && \
-    curl -sSL https://get.docker.com/ | sh
-RUN npm install
-RUN npm install dockerode
+FROM tensorflow/tensorflow:nightly-gpu
 
-FROM node:12
-
-WORKDIR /app
-
-COPY package.json /app
-
-COPY . /app
-
-EXPOSE 80
-
-CMD ["which docker"]
-# CMD ["node", "server.js"]
+RUN apt update
+RUN pip3 install matplotlib
+RUN pip3 install numpy
+RUN pip3 install scipy
+RUN pip3 install gunicorn
+RUN pip3 install pandas
+RUN pip3 install flask
+RUN pip3 install Flask-SQLAlchemy
+RUN pip3 install keras 
+RUN pip3 install protobuf==3.20.*
