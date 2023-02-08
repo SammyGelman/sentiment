@@ -12,6 +12,7 @@ RUN pip3 install protobuf==3.20.*
 
 COPY . .
 
-EXPOSE 5000
-
-CMD [ "flask", "run","--host","0.0.0.0","--port","5000"]
+# EXPOSE 5000
+#
+# CMD [ "flask", "run","--host","0.0.0.0","--port","5000"]
+CMD [ "flask", "run"]
