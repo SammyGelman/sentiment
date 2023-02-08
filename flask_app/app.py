@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import os
 from load_and_run_embedding import sentiment
 
 app = Flask(__name__)
@@ -76,4 +77,4 @@ def delete(id):
 #
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=int(os.getenv('PORT')))
