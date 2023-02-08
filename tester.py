@@ -8,7 +8,6 @@ import tensorflow as tf
 tf.get_logger().setLevel('FATAL')
 
 import json
-from tensorflow import keras
 from keras.callbacks import ModelCheckpoint, EarlyStopping, CSVLogger
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
@@ -18,17 +17,15 @@ import os
 import pandas as pd
 import argparse
 
-# parser = argparse.ArgumentParser(
-#                                  prog="sentiment.py",
-#                     description="write string and output sentiment")
-#
-# parser.add_argument('sentence', type=str,
-#                     help="string to test sentiment")
-#
-# args = parser.parse_args()
-#
-# sentence = args.sentence
-#
+parser = argparse.ArgumentParser(
+    prog="sentiment.py", description="write string and output sentiment")
+
+parser.add_argument('sentence', type=str, help="string to test sentiment")
+
+args = parser.parse_args()
+
+sentence = args.sentence
+
 # Suppress TensorFlow output by setting the environment variable
 
 
@@ -183,3 +180,8 @@ def sentiment(sentence):
         output = "Didn't seem sarcastic to me!"
 
     return output
+
+
+output = sentiment(sentence)
+print("\n\n\n\n\n")
+print(output)
