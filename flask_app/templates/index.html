@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Sentiment detection</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1 style="text-align: center">Sentiment detection</h1>
+    {% if tasks|length < 1 %}
+    <h4 style="text-align: center">Give it a try</h4>
+    {% else %}
+    <table>
+        <tr>
+            <th>Sentiment</th>
+            <th>Added</th>
+            <th>Actions</th>
+        </tr>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.content }}</td>
+                <td>{{ task.date_created.date() }}</td>
+                <td>
+                    <a href="/delete/{{task.id}}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    <div class="form">
+        <form action="/" method="POST">
+            <input type="Sarcasm Check" name="content" id="content">
+            <input type="submit" value="Check Sentence">
+        </form>
+    </div>
+</div>
+{% endblock %}
